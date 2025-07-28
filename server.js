@@ -1,26 +1,20 @@
 // 📦 File: server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // ✅ لحل مشكلة CORS
 const axios = require('axios');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ⚠️ من الأفضل تخزين هاد القيم فـ .env فالنسخة النهائية
+// ✅ Environment variables (you should use .env file in production)
 const SHOPIFY_API_KEY = '05af89d61893f7f6e9c59a9bd2486fcc';
 const SHOPIFY_API_SECRET = '8fc0e7b4d183b748398ed7c32e93d911';
 const SHOPIFY_STORE = 'privilegiashop.ma';
 const ACCESS_TOKEN = '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';
 
-// ✅ Middleware
-app.use(cors({
-  origin: 'https://www.privilegiashop.ma', // 🛡️ حدد الموقع المسموح به
-}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ✅ Endpoint لإنشاء الطلب في Shopify
+// 🛒 Endpoint to create real order in Shopify
 app.post('/create-order', async (req, res) => {
   const { nom, tele, ville, address, quantity, variantId } = req.body;
 
