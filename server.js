@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -11,12 +12,19 @@ const SHOPIFY_API_SECRET = '8fc0e7b4d183b748398ed7c32e93d911';
 const SHOPIFY_STORE = 'privilegiashop.ma';
 const ACCESS_TOKEN = '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';
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors()); // 👈 هذا يحل مشكل CORS
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 🛒 Endpoint to create real order in Shopify
 app.post('/create-order', async (req, res) => {
   const { nom, tele, ville, address, quantity, variantId } = req.body;
+
+  const cors = require('cors');
+app.use(cors());
 
   try {
     const orderData = {
